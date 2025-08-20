@@ -55,3 +55,42 @@ body.home { height: 100vh; overflow: hidden; }
 .link-card p { margin: 0; color: var(--muted); }
 /* top small note */
 .small-note { display:flex; align-items:center; gap:8px; margin: 10px 0; }
+
+/* ===== Better header design ===== */
+.site-header.better { 
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,.85);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid #ececec;
+}
+.site-header.better .wrap { display:flex; align-items:center; justify-content: space-between; height:64px; gap: 12px; }
+.brand { display:flex; align-items:center; gap: 10px; text-decoration:none; color:var(--fg); }
+.brand .logo { width: 32px; height: 32px; }
+.brand-title { font-weight: 800; letter-spacing:.02em; }
+.brand-sub { font-size:.9rem; color: var(--muted); margin-left:4px; }
+
+/* Nav as pill */
+.nav { position: relative; display:flex; align-items:center; gap: 4px; padding: 6px; border-radius: 999px; background: rgba(255,255,255,.9); border: 1px solid #eaeaea; box-shadow: 0 2px 10px rgba(0,0,0,.04); }
+.nav a { position: relative; display: inline-block; padding: 8px 12px; border-radius: 999px; text-decoration:none; color: var(--fg); font-weight: 700; line-height: 1; }
+.nav a:hover, .nav a:focus { color: var(--brand); outline: none; }
+.nav .underline { position:absolute; left:0; top:0; width: var(--u-w, 0); height: calc(100% - 12px); margin:6px; border-radius: 999px; background: #eef2ff; transform: translateX(var(--u-x, 0)); transition: transform .18s ease, width .18s ease; }
+
+/* Active link highlight by page */
+body[data-page="reservation"] .nav a[href$="reservation.html"],
+body[data-page="rules"] .nav a[href$="rules.html"],
+body[data-page="facilities"] .nav a[href$="facilities.html"],
+body[data-page="contact"] .nav a[href$="contact.html"],
+body[data-page="home"] .brand { color: var(--brand); }
+
+/* Mobile menu (CSS-only) */
+.nav-toggle { display:none; }
+.nav-btn { display:none; width:40px; height:40px; align-items:center; justify-content:center; border-radius:10px; border:1px solid #eaeaea; background: #fff; cursor:pointer; }
+.nav-btn .bar { display:block; width:20px; height:2px; background:#333; margin:3px 0; }
+@media (max-width:720px){
+  .site-header.better .wrap { height: 60px; }
+  .nav-btn { display:flex; }
+  .nav { position: absolute; right: 12px; top: 60px; width: calc(100% - 24px); flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 10px; border-radius: 14px; display:none; }
+  .nav a { flex: 1 1 calc(50% - 8px); text-align: center; padding: 12px; background:#fff; border:1px solid #eee; }
+  #nav-toggle:checked ~ .nav { display:flex; }
+  .nav .underline { display:none; }
+}
