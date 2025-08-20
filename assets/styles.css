@@ -224,3 +224,82 @@ body[data-page="contact"] .nav a[href$="contact.html"]{
 @media (prefers-reduced-motion: reduce){
   *{ transition:none !important; animation:none !important; }
 }
+
+/* =========================
+   Dark mode 上書き & 固定色を変数化
+   ========================= */
+
+/* 共通で使える線色を追加 */
+:root {
+  --line:#e5e7eb; /* ライト用の境界線 */
+  color-scheme: light dark;
+}
+
+/* ダークモード変数 */
+@media (prefers-color-scheme: dark){
+  :root {
+    --bg:#0f1216;
+    --fg:#e9eef5;
+    --muted:#a6b0bf;
+    --card:#141922;
+    --line:#232832;
+    --bg-solid:#0f1216;
+  }
+}
+/* 手動切替用（例: <body data-theme="dark">） */
+html[data-theme="dark"], body[data-theme="dark"] {
+  --bg:#0f1216;
+  --fg:#e9eef5;
+  --muted:#a6b0bf;
+  --card:#141922;
+  --line:#232832;
+  --bg-solid:#0f1216;
+}
+
+/* ===== 固定色 → 変数に置換 ===== */
+
+/* ヘッダーのボーダー */
+.site-header,
+.site-header.better {
+  border-bottom: 1px solid var(--line);
+}
+
+/* ナビ pill */
+.nav {
+  border: 1px solid var(--line);
+  background: color-mix(in lab, var(--bg) 92%, transparent);
+}
+.nav .underline {
+  background: color-mix(in lab, var(--fg) 12%, transparent);
+}
+
+/* カード類 */
+.card,
+.kv {
+  background: var(--card);
+  border: 1px solid var(--line);
+}
+
+/* テーブル */
+.table {
+  border: 1px solid var(--line);
+}
+.table th, .table td {
+  border-bottom: 1px solid var(--line);
+}
+.table th {
+  background: color-mix(in lab, var(--card) 75%, var(--bg) 25%);
+}
+
+/* リンクカード hover */
+.link-card:hover {
+  background: color-mix(in lab, var(--card) 70%, var(--bg) 30%);
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+
+/* フッター */
+.site-footer {
+  background: color-mix(in lab, var(--bg) 96%, transparent);
+  border-top: 1px solid var(--line);
+}
+
