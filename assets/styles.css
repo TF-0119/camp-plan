@@ -1,14 +1,20 @@
-
+/* =========================
+   Base (あなたの既存CSS)
+   ========================= */
 :root { --fg:#111; --muted:#666; --bg:#fff; --brand:#0b5cff; --card:#f7f7f9; }
 * { box-sizing: border-box; }
 html,body { margin:0; padding:0; background:var(--bg); color:var(--fg); font-family: "Noto Sans JP", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; }
 .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
 .small { font-size: 0.88rem; color: var(--muted); }
+
+/* 既存の（シンプル版）ヘッダー。better版で上書きされるため残すだけ */
 .site-header { position: sticky; top:0; backdrop-filter: saturate(180%) blur(8px); background: rgba(255,255,255,.85); border-bottom: 1px solid #eee; z-index:10; }
 .site-header .wrap { display:flex; align-items:center; justify-content: space-between; height:56px; }
+
 .brand { font-weight:700; text-decoration:none; color:var(--fg); }
 .nav a { margin-left: 14px; text-decoration:none; color: var(--fg); }
 .nav a:hover { color: var(--brand); }
+
 h1 { font-size: 1.6rem; margin: 20px 0 8px; }
 h2 { font-size: 1.2rem; margin: 18px 0 8px; }
 p { line-height: 1.7; }
@@ -38,7 +44,6 @@ body.home { height: 100vh; overflow: hidden; }
   gap: 10px;
 }
 @media (max-width: 640px){
-  /* small phones: keep 2x2 but slightly tighter note height */
   .quad-grid { height: calc(100vh - 56px - 86px); }
 }
 .link-card { 
@@ -53,44 +58,161 @@ body.home { height: 100vh; overflow: hidden; }
 .link-card:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,.06); background: #fdfdfd; }
 .link-card h2 { font-size: 1.3rem; margin: 0 0 6px; }
 .link-card p { margin: 0; color: var(--muted); }
-/* top small note */
 .small-note { display:flex; align-items:center; gap:8px; margin: 10px 0; }
 
-/* ===== Better header design ===== */
-.site-header.better { 
-  position: sticky; top: 0; z-index: 50;
-  background: rgba(255,255,255,.85);
-  backdrop-filter: saturate(180%) blur(10px);
-  border-bottom: 1px solid #ececec;
-}
-.site-header.better .wrap { display:flex; align-items:center; justify-content: space-between; height:64px; gap: 12px; }
-.brand { display:flex; align-items:center; gap: 10px; text-decoration:none; color:var(--fg); }
-.brand .logo { width: 32px; height: 32px; }
-.brand-title { font-weight: 800; letter-spacing:.02em; }
-.brand-sub { font-size:.9rem; color: var(--muted); margin-left:4px; }
-
-/* Nav as pill */
-.nav { position: relative; display:flex; align-items:center; gap: 4px; padding: 6px; border-radius: 999px; background: rgba(255,255,255,.9); border: 1px solid #eaeaea; box-shadow: 0 2px 10px rgba(0,0,0,.04); }
-.nav a { position: relative; display: inline-block; padding: 8px 12px; border-radius: 999px; text-decoration:none; color: var(--fg); font-weight: 700; line-height: 1; }
-.nav a:hover, .nav a:focus { color: var(--brand); outline: none; }
-.nav .underline { position:absolute; left:0; top:0; width: var(--u-w, 0); height: calc(100% - 12px); margin:6px; border-radius: 999px; background: #eef2ff; transform: translateX(var(--u-x, 0)); transition: transform .18s ease, width .18s ease; }
-
-/* Active link highlight by page */
-body[data-page="reservation"] .nav a[href$="reservation.html"],
-body[data-page="rules"] .nav a[href$="rules.html"],
-body[data-page="facilities"] .nav a[href$="facilities.html"],
-body[data-page="contact"] .nav a[href$="contact.html"],
-body[data-page="home"] .brand { color: var(--brand); }
-
-/* Mobile menu (CSS-only) */
+/* ===== Mobile menu (あなたの構成) ===== */
 .nav-toggle { display:none; }
 .nav-btn { display:none; width:40px; height:40px; align-items:center; justify-content:center; border-radius:10px; border:1px solid #eaeaea; background: #fff; cursor:pointer; }
 .nav-btn .bar { display:block; width:20px; height:2px; background:#333; margin:3px 0; }
 @media (max-width:720px){
-  .site-header.better .wrap { height: 60px; }
+  .site-header .wrap { height: 60px; }
   .nav-btn { display:flex; }
   .nav { position: absolute; right: 12px; top: 60px; width: calc(100% - 24px); flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 10px; border-radius: 14px; display:none; }
   .nav a { flex: 1 1 calc(50% - 8px); text-align: center; padding: 12px; background:#fff; border:1px solid #eee; }
   #nav-toggle:checked ~ .nav { display:flex; }
   .nav .underline { display:none; }
+}
+
+/* =========================
+   Override/Upgrade (前回の“良い感じ”版を優先)
+   ========================= */
+
+/* 追加の色変数（前回デザイン用）。未指定時は既存色でOK */
+:root{
+  --accent1:#22d3ee; /* cyan */
+  --accent2:#a78bfa; /* violet */
+  --accent3:#f472b6; /* pink */
+  --bg-solid:#ffffff;
+  --ring: 0 0 0 3px color-mix(in lab, var(--accent2) 35%, transparent);
+  --radius: 14px;
+}
+
+/* ライト/ダーク自動対応（OS設定に追従） */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0f1216;
+    --fg:#e9eef5;
+    --muted:#a6b0bf;
+    --card:#151a21;
+    --bg-solid:#0f1216;
+  }
+}
+
+/* ====== ヘッダー（better） ====== */
+.site-header.better{
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in lab, var(--bg) 85%, transparent);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid color-mix(in lab, var(--muted) 18%, transparent);
+}
+.site-header.better .wrap{
+  display:flex; align-items:center; justify-content: space-between;
+  height:64px; gap: 12px;
+}
+
+/* ====== ブランド（hoverでグラデ文字） ====== */
+.brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--fg); }
+.brand .logo { width: 32px; height: 32px; }
+.brand-title{ font-weight:800; letter-spacing:.02em; }
+.brand-sub{ font-size:.9rem; color: var(--muted); margin-left:4px; }
+.brand:hover .brand-title{
+  background: linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent3));
+  -webkit-background-clip:text; background-clip:text; color: transparent;
+}
+
+/* ====== ナビ（ピル + アニメ下線） ====== */
+.nav{
+  margin-left:auto; position:relative; display:flex; align-items:center; gap: 8px;
+  padding: 6px; border-radius: 999px;
+  background: color-mix(in lab, var(--bg) 92%, white 8%);
+  border: 1px solid color-mix(in lab, var(--muted) 22%, transparent);
+  box-shadow: 0 2px 10px rgba(0,0,0,.04);
+}
+.nav a{
+  position: relative; display:inline-flex; align-items:center; justify-content:center;
+  padding: 10px 12px; border-radius: 999px;
+  color: var(--fg); text-decoration:none; font-weight:700; line-height:1;
+  transition: transform .15s ease, background .15s ease, color .2s ease;
+}
+.nav a:hover{ color: var(--brand); transform: translateY(-1px); }
+.nav a:focus-visible{ outline:none; box-shadow: var(--ring); }
+
+/* アンダーライン（各リンクに自前のアニメ） */
+.nav .underline{ position:absolute; left:0; top:0; width: var(--u-w, 0); height: calc(100% - 12px); margin:6px; border-radius:999px; background:#eef2ff; transform: translateX(var(--u-x, 0)); transition: transform .22s ease, width .22s ease; }
+.nav a::after{
+  content:""; position:absolute; left:12px; right:12px; bottom:6px; height:2px;
+  background: linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent3));
+  border-radius:2px; transform: scaleX(0); transform-origin:left; transition: transform .22s ease;
+}
+.nav a:hover::after,
+.nav a:focus-visible::after{ transform: scaleX(1); }
+
+/* 現在地表示（どちらの方法でも可） */
+.nav a[aria-current="page"],
+body[data-page="reservation"] .nav a[href$="reservation.html"],
+body[data-page="rules"] .nav a[href$="rules.html"],
+body[data-page="facilities"] .nav a[href$="facilities.html"],
+body[data-page="contact"] .nav a[href$="contact.html"]{
+  background: color-mix(in lab, var(--bg-solid) 10%, transparent);
+}
+.nav a[aria-current="page"]::after{ transform: scaleX(1); }
+
+/* ====== モバイルナビ（CSSのみ・開閉は#nav-toggle互換） ====== */
+.nav-toggle{ display:none; } /* class 互換 */
+#nav-toggle{ display:none; }  /* id 互換 */
+
+.nav-btn{
+  display:none; cursor:pointer; padding:10px; border-radius:10px;
+  border:1px solid color-mix(in lab, var(--muted) 22%, transparent);
+  background: var(--bg-solid);
+}
+.nav-btn:focus-visible{ outline:none; box-shadow: var(--ring); }
+.nav-btn .bar{ display:block; width:22px; height:2px; margin:5px 0; background: var(--fg); transition: transform .25s ease, opacity .25s ease; }
+
+@media (max-width: 860px){
+  .site-header.better .wrap{ height:60px; }
+  .nav-btn{ display:flex; align-items:center; justify-content:center; }
+  .nav{
+    position: fixed; inset: 0 0 auto auto; top: 60px; right: 10px;
+    flex-direction: column; gap: 6px; padding: 10px;
+    width: min(92vw, 340px);
+    background: color-mix(in lab, var(--bg) 92%, transparent);
+    border: 1px solid color-mix(in lab, var(--muted) 22%, transparent);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 40px rgba(0,0,0,.18);
+    transform: translateY(-16px) scale(.98); opacity: 0; pointer-events:none;
+    transition: transform .18s ease, opacity .18s ease;
+  }
+  .nav a{ width:100%; justify-content:flex-start; padding:12px 14px; }
+  .nav a::after{ left:14px; right:14px; bottom:8px; }
+  /* 開閉（#nav-toggle or .nav-toggle どちらでも動く） */
+  #nav-toggle:checked ~ .nav,
+  .nav-toggle:checked ~ .nav{
+    transform: translateY(0) scale(1); opacity:1; pointer-events:auto;
+  }
+  /* ハンバーガー → × 変形 */
+  #nav-toggle:checked + .nav-btn .bar:nth-child(1),
+  .nav-toggle:checked + .nav-btn .bar:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+  #nav-toggle:checked + .nav-btn .bar:nth-child(2),
+  .nav-toggle:checked + .nav-btn .bar:nth-child(2){ opacity:0; }
+  #nav-toggle:checked + .nav-btn .bar:nth-child(3),
+  .nav-toggle:checked + .nav-btn .bar:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+  /* あなたの小画面グリッド調整は維持 */
+}
+
+/* ====== スクロール時の僅かな影（対応ブラウザ） ====== */
+@supports (animation-timeline: scroll()){
+  body{ view-timeline: --page block; }
+  .site-header.better{
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+    animation: hdr-shadow both linear;
+    animation-timeline: --page; animation-range: 0 150px;
+  }
+  @keyframes hdr-shadow{ to{ box-shadow: 0 8px 24px rgba(0,0,0,.18); } }
+}
+
+/* ====== 低動作設定 ====== */
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; animation:none !important; }
 }
