@@ -36,12 +36,20 @@ hr { border:0; border-top:1px solid #eee; margin: 18px 0; }
 /* ===== Top page 2x2 quadrant layout ===== */
 body.home { height: 100vh; overflow: hidden; }
 .home .quad-wrap { padding-top: 10px; }
-.quad-grid { 
-  height: calc(100vh - 56px - 74px); /* header(56) + top note area(~74) */
-  display: grid; 
-  grid-template-columns: 1fr 1fr; 
-  grid-template-rows: 1fr 1fr; 
+.quad-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 10px;
+  justify-items: stretch;
+  align-items: stretch;
+}
+
+.quad-grid > * {
+  aspect-ratio: 1 / 1; /* ← 各セルを正方形に */
+  display: flex;       /* 中央寄せ用 */
+  align-items: center;
+  justify-content: center;
 }
 @media (max-width: 640px){
   .quad-grid { height: calc(100vh - 56px - 86px); }
